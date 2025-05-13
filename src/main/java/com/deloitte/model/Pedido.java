@@ -1,0 +1,39 @@
+package com.deloitte.model;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "tb_pedidos")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Pedido {
+
+    @EmbeddedId
+    private PedidoID pedidoID;
+
+    @ManyToOne
+    @JoinColumn(name ="client_id")
+    @MapsId("clientId")
+    @JsonBackReference
+    private Cliente cliente;
+
+
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
+    @MapsId("produtoId")
+    @JsonBackReference
+    private Produto produto;
+
+    private Integer quantidade;
+
+    private BigDecimal valorTotal;
+
+
+}
