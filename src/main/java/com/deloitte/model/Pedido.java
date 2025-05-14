@@ -33,7 +33,7 @@ public class Pedido {
 
     private Integer quantidade;
 
-    private BigDecimal valorTotal;
+    private Double valorTotal;
 
 
 }

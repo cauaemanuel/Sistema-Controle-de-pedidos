@@ -23,7 +23,7 @@ public class Produto {
     @Column(unique = true)
     private String nome;
 
-    private BigDecimal valor;
+    private Double valor;
 
     @OneToMany(mappedBy = "produto")
     @JsonManagedReference

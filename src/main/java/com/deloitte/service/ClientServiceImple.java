@@ -1,9 +1,9 @@
 package com.deloitte.service;
 
-import ch.qos.logback.core.net.server.Client;
 import com.deloitte.model.Cliente;
 import com.deloitte.model.dto.ClientDTO;
 import com.deloitte.model.map.ClientFactory;
+
 import com.deloitte.repository.ClientRepository;
 import com.deloitte.service.interfaces.ClientService;
 import jakarta.transaction.Transactional;
@@ -24,8 +24,8 @@ public class ClientServiceImple implements ClientService {
 
     @Transactional
     public Cliente create(ClientDTO dto){
-        var client = ClientFactory.fromDTO(dto);
-        return clientRepository.save(client);
+        var produto = ClientFactory.fromDTO(dto);
+        return clientRepository.save(produto);
     }
 
     public List<ClientDTO> findAll(){
@@ -39,24 +39,24 @@ public class ClientServiceImple implements ClientService {
 
     @Transactional
     public ClientDTO findById(Integer id){
-        var client = clientRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A Cliente não foi encontrada; Verifique o ID"));
-        return ClientFactory.fromClient(client);
+        var produto = clientRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A produtoe não foi encontrada; Verifique o ID"));
+        return ClientFactory.fromClient(produto);
     }
 
     @Transactional
     public void deleteById(Integer id){
-        var client = clientRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A Cliente não foi encontrada; Verifique o ID"));
+        var produto = clientRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A produtoe não foi encontrada; Verifique o ID"));
         clientRepository.deleteById(id);
     }
 
     public ClientDTO updateCliente(ClientDTO dto, Integer id){
-        var client = clientRepository.findById(id)
+        var produto = clientRepository.findById(id)
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id invalido"));
 
-        var updateSala = ClientFactory.updateFromDTO(client, dto);
+        var updateSala = ClientFactory.updateFromDTO(produto, dto);
         return ClientFactory.fromClient(clientRepository.save(updateSala));
     }
 }
