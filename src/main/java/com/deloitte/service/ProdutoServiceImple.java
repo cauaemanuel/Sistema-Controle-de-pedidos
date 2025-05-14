@@ -39,7 +39,7 @@ public class ProdutoServiceImple implements ProdutoService {
     @Transactional
     public ProdutoDTO findById(Integer id){
         var produto = produtoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A produtoe não foi encontrada; Verifique o ID"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "O produto não foi encontrado; Verifique o ID"));
         return ProdutoFactory.fromProduto(produto);
     }
 

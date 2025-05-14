@@ -26,4 +26,5 @@ public class ProdutoFactory {
         prod.setValor(dto.valor());
         return prod;
     }
+
 }

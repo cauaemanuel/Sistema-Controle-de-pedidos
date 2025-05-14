@@ -1,5 +1,6 @@
 package com.deloitte.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class Produto {
 
     @OneToMany(mappedBy = "produto")
     @JsonManagedReference
+    @JsonIgnore
     private List<Pedido> pedidos;
 
 }

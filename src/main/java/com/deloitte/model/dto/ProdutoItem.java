@@ -1,4 +1,6 @@
 package com.deloitte.model.dto;
 
-public record ProdutoItem(Integer produtoId, Integer quantidade) {
+import jakarta.validation.constraints.NotNull;
+
+public record ProdutoItem(@NotNull Integer produtoId,@NotNull Integer quantidade) {
 }

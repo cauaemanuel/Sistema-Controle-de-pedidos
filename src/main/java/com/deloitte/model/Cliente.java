@@ -1,6 +1,7 @@
 package com.deloitte.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import jakarta.persistence.*;
@@ -30,6 +31,7 @@ public class Cliente {
 
     @OneToMany(mappedBy = "cliente")
     @JsonManagedReference
+    @JsonIgnore
     private List<Pedido> compras;
 
 }

@@ -1,6 +1,7 @@
 package com.deloitte.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,24 +16,22 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class Pedido {
 
-    @EmbeddedId
-    private PedidoID pedidoID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer pedidoID;
 
     @ManyToOne
     @JoinColumn(name ="client_id")
-    @MapsId("clientId")
     @JsonBackReference
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
-    @MapsId("produtoId")
     @JsonBackReference
+    @JsonIgnore
     private Produto produto;
 
     private Integer quantidade;
-
     private Double valorTotal;
-
 
 }
