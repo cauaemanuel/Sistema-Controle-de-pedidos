@@ -24,7 +24,6 @@ public class Pedido {
     @JsonBackReference
     private Cliente cliente;
 
-
     @ManyToOne
     @JoinColumn(name = "produto_id")
     @MapsId("produtoId")
