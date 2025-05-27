@@ -1,5 +1,6 @@
 package com.deloitte.service;
 
+import com.deloitte.model.Cliente;
 import com.deloitte.model.Produto;
 import com.deloitte.model.dto.ProdutoDTO;
 import com.deloitte.model.map.ProdutoFactory;
@@ -38,24 +39,26 @@ public class ProdutoServiceImple implements ProdutoService {
 
     @Transactional
     public ProdutoDTO findById(Integer id){
-        var produto = produtoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "O produto não foi encontrado; Verifique o ID"));
+        var produto = findEntity(id);
         return ProdutoFactory.fromProduto(produto);
     }
 
     @Transactional
     public void deleteById(Integer id){
-        var produto = produtoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A produtoe não foi encontrada; Verifique o ID"));
+        var produto = findEntity(id);
         produtoRepository.deleteById(id);
     }
 
     public ProdutoDTO updateProduto(ProdutoDTO dto, Integer id){
-        var produto = produtoRepository.findById(id)
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id invalido"));
+        var produto = findEntity(id);
 
         var updateSala = ProdutoFactory.updateFromDTO(produto, dto);
         return ProdutoFactory.fromProduto(produtoRepository.save(updateSala));
+    }
+
+    private Produto findEntity(Integer id){
+        return produtoRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id invalido"));
     }
 }

@@ -39,24 +39,26 @@ public class ClientServiceImple implements ClientService {
 
     @Transactional
     public ClientDTO findById(Integer id){
-        var produto = clientRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A produtoe não foi encontrada; Verifique o ID"));
+        var produto = findEntity(id);
         return ClientFactory.fromClient(produto);
     }
 
     @Transactional
     public void deleteById(Integer id){
-        var produto = clientRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A produtoe não foi encontrada; Verifique o ID"));
+        var produto = findEntity(id);
         clientRepository.deleteById(id);
     }
 
     public ClientDTO updateCliente(ClientDTO dto, Integer id){
-        var produto = clientRepository.findById(id)
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id invalido"));
+        var produto = findEntity(id);
 
         var updateSala = ClientFactory.updateFromDTO(produto, dto);
         return ClientFactory.fromClient(clientRepository.save(updateSala));
+    }
+
+    private Cliente findEntity(Integer id){
+        return clientRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id invalido"));
     }
 }
